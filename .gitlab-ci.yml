@@ -1,0 +1,68 @@
+image: docker:latest
+
+variables:
+  DOCKER_DRIVER: overlay
+  IMAGE_JAVA: java
+  IMAGE_NODE: node
+  CREDENTIALS: --username=$CI_REGISTRY --password=$CI_REGISTRY_PWD
+
+services:
+  - docker:dind
+
+stages:
+  - build:job
+  - test:job
+  - release
+
+cache:
+  paths:
+    - ./nodeApi/src/node_modules
+
+java - build:
+  image: maven:latest
+  stage: build:job
+  script:
+    - mvn clean install -DskipTests
+
+java - test:
+  image: maven:latest
+  stage: test:job
+  script:
+    - mvn test
+
+java - release:
+  stage: release
+  when: on_success
+  before_script:
+    - docker login $CREDENTIALS
+  script:
+    - docker build -t $IMAGE_JAVA .
+    - docker tag $IMAGE_JAVA $CI_REGISTRY/$IMAGE_JAVA:1
+    - docker push docker.io/$CI_REGISTRY/$IMAGE_JAVA:1
+
+node - build:
+  image: node:14
+  stage: build:job
+  script:
+    - cd nodeApi/src
+    - npm install
+  cache:
+    paths:
+      - ./nodeApi/src/node_modules
+
+node - test: 
+  image: node:14
+  stage: test:job
+  script:
+    - cd nodeApi/src
+    - npm test
+
+node - release:
+  stage: release
+  when: on_success
+  before_script:
+    - winpty docker login $CREDENTIALS
+  script:
+    - docker build -t $IMAGE_NODE ./nodeApi/src
+    - docker tag $IMAGE_NODE $CI_REGISTRY/$IMAGE_NODE:1
+    - docker push docker.io/$CI_REGISTRY/$IMAGE_NODE:1
