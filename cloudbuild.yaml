@@ -1,0 +1,8 @@
+steps:
+  - name: 'build'
+    args: ["./scripts/deploy-http.sh"]
+    waitFor: ["-"]
+
+  - name: 'build'
+    args: ["./scripts/deploy-pubsub.sh"]
+    waitFor: ["-"]
