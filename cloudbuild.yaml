@@ -36,7 +36,7 @@ steps:
 # Build the java container image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Build java project with docker"
-    args: ["build", "-t", "${_CI_USERNAME}/java:1"]
+    args: ["build", "${_CI_USERNAME}/java:1"]
 
 # Build the java container image
   - name: 'gcr.io/cloud-builders/docker'
