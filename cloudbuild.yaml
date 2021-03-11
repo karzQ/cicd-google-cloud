@@ -35,12 +35,18 @@ steps:
 
 # Build the java container image
   - name: 'gcr.io/cloud-builders/docker'
-    id: "Dockerize java project"
-    args: [
-      "build", "-t", "${_CI_USERNAME}/java:1",
-      "tag", "java", "${_CI_USERNAME}/java:1",
-      "push", "docker.io/${_CI_USERNAME}/java:1"
-    ]
+    id: "Build java project with docker"
+    args: ["build", "-t", "${_CI_USERNAME}/java:1"]
+
+# Build the java container image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: "Add tag for java project image"
+    args: ["tag", "java", "${_CI_USERNAME}/java:1"]
+
+# Build the java container image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: "Push java project image to DockerHub"
+    args: ["push", "docker.io/${_CI_USERNAME}/java:1"]
 
 # # Build the node container image
 #   - name: 'docker'
