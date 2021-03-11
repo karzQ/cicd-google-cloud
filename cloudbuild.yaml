@@ -31,7 +31,7 @@ steps:
 # Build the java container image
   - name: 'docker'
     id: "Dockerize java project"
-    entrypoint: 'docker'
+    # entrypoint: 'docker'
     args: [
       "login", "-u", "${_CI_USERNAME}", "-p", "${_CI_PASSWORD}",
       "build", "${_CI_USERNAME}/java:1",
