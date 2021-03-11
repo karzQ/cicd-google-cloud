@@ -1,15 +1,8 @@
 steps:
-  # - name: 'maven'
-  #   id: maven-build
-  #   args: ["mvn", "clean", "install", "-DskipTest"]
-
-
-
-# Go to node Directory
   - name: 'node'
     id: 'Install node'
     dir: './nodeApi/src'
-    args: ["npm ", "install"]
+    args: ["npm", "install"]
 
   - name: 'node'
     id: 'Build node'
