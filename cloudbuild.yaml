@@ -38,10 +38,10 @@ steps:
     id: "Build java project with docker"
     args: ["build", "-t", "${_CI_USERNAME}/java:1", "."]
 
-# Build the java container image
-  - name: 'gcr.io/cloud-builders/docker'
-    id: "Add tag for java project image"
-    args: ["tag", "java", "${_CI_USERNAME}/java:1"]
+# # Build the java container image
+#   - name: 'gcr.io/cloud-builders/docker'
+#     id: "Add tag for java project image"
+#     args: ["tag", "java", "${_CI_USERNAME}/java:1"]
 
 # Build the java container image
   - name: 'gcr.io/cloud-builders/docker'
