@@ -1,11 +1,19 @@
 steps:
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: ["./scripts/deploy-http.sh"]
-    waitFor: ["-"]
+  # - name: 'maven'
+  #   id: maven-build
+  #   args: ["mvn", "clean", "install", "-DskipTest"]
 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: ["./scripts/deploy-pubsub.sh"]
-    waitFor: ["-"]
+  - name: 'node'
+    id: node-build
+    args: ["npm", "install"]
+
+  - name: 'node'
+    id: node-build
+    args: ["npm", "run", "build"]
+
+  - name: 'node'
+    id: node-test
+    args: ["npm", "run", "test"]
 
 # steps:
 # - name: 'gcr.io/cloud-builders/npm' 
