@@ -4,15 +4,12 @@ steps:
   #   args: ["mvn", "clean", "install", "-DskipTest"]
 
   - name: 'node'
-    id: node-build
     args: ["npm", "install"]
 
   - name: 'node'
-    id: node-build
     args: ["npm", "run", "build"]
 
   - name: 'node'
-    id: node-test
     args: ["npm", "run", "test"]
 
 # steps:
