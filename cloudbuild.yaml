@@ -8,15 +8,17 @@ steps:
 # Go to node Directory
   - name: 'node'
     id: 'Install node'
-    entrypoint: '/bin/bash'
-    args: ["cd ", "nodeApi/src"]
+    dir: './nodeApi/src'
+    args: ["npm ", "install"]
 
   - name: 'node'
     id: 'Build node'
+    dir: './nodeApi/src'
     args: ["npm", "run", "build"]
 
   - name: 'node'
     id: 'Test node'
+    dir: './nodeApi/src'
     args: ["npm", "run", "test"]
 
 # steps:
