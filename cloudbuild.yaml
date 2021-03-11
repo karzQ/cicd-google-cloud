@@ -4,6 +4,9 @@ steps:
   #   args: ["mvn", "clean", "install", "-DskipTest"]
 
   - name: 'node'
+    args: ["cd", "nodeApi"]
+
+  - name: 'node'
     args: ["npm", "install"]
 
   - name: 'node'
