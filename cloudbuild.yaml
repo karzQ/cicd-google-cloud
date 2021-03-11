@@ -37,7 +37,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: "Dockerize java project"
     args: [
-      "build", "${_CI_USERNAME}/java:1",
+      "build", "-t", ${_CI_USERNAME}/java:1",
       "tag", "java", "${_CI_USERNAME}/java:1",
       "push", "docker.io/${_CI_USERNAME}/java:1"
     ]
