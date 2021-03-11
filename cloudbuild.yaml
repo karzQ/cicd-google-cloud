@@ -32,7 +32,7 @@ steps:
   - name: 'docker'
     id: "Dockerize java project"
     args: [
-      # "login", "--username=${_CI_USERNAME}", "--password=${_CI_PASSWORD}",
+      "login", "--username", "${_CI_USERNAME}", "--password", "${_CI_PASSWORD}",
       "build", "${_CI_USERNAME}/java:1",
       "tag", "java", "${_CI_USERNAME}/java:1",
       "push", "docker.io/${_CI_USERNAME}/java:1"
