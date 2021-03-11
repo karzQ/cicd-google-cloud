@@ -5,9 +5,7 @@ steps:
 
 # Go to node Directory
   - name: 'node'
-    args: ["/bin/bash", "cd", "nodeApi"]
-
-  - name: 'node'
+    dir: 'nodeApi/src'
     args: ["npm", "install"]
 
   - name: 'node'
