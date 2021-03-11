@@ -5,7 +5,7 @@ steps:
 
 # Go to node Directory
   - name: 'node'
-    dir: 'nodeApi/src'
+    dir: '/nodeApi/src'
     args: ["npm", "install"]
 
   - name: 'node'
