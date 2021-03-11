@@ -47,10 +47,10 @@ steps:
 ## Dockerize NodeJS
 # Build the NodeJS container image
   - name: 'gcr.io/cloud-builders/docker'
-    id: "Build java project with docker"
+    id: "Build node project with docker"
     args: ["build", "-t", "${_CI_USERNAME}/node:1", "."]
 
 # Build the NodeJS container image
   - name: 'gcr.io/cloud-builders/docker'
-    id: "Push java project image to DockerHub"
+    id: "Push node project image to DockerHub"
     args: ["push", "docker.io/${_CI_USERNAME}/node:1"]
