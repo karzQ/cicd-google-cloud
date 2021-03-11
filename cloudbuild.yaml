@@ -28,12 +28,12 @@ steps:
     dir: './nodeApi/src'
     args: ["npm", "test"]
 
-## Dockerize NodeJS
 # Login the java container image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Login to Docker"
     args: ["login", "--username", "${_CI_USERNAME}", "--password", "${_CI_PASSWORD}"]
 
+## Dockerize java
 # Build the java container image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Build java project with docker"
@@ -45,11 +45,6 @@ steps:
     args: ["push", "docker.io/${_CI_USERNAME}/java:1"]
 
 ## Dockerize NodeJS
-# Login the NodeJS container image
-  - name: 'gcr.io/cloud-builders/docker'
-    id: "Login to Docker"
-    args: ["login", "--username", "${_CI_USERNAME}", "--password", "${_CI_PASSWORD}"]
-
 # Build the NodeJS container image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Build java project with docker"
