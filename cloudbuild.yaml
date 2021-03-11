@@ -7,12 +7,12 @@ steps:
   - name: 'node'
     id: 'Build node'
     dir: './nodeApi/src'
-    args: ["npm", "run", "build"]
+    args: ["npm", build"]
 
   - name: 'node'
     id: 'Test node'
     dir: './nodeApi/src'
-    args: ["npm", "run", "test"]
+    args: ["npm", "test"]
 
 # steps:
 # - name: 'gcr.io/cloud-builders/npm' 
