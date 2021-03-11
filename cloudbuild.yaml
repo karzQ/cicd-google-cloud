@@ -28,7 +28,7 @@ steps:
     dir: './nodeApi/src'
     args: ["npm", "test"]
 
-# Login the java container image
+# Login to dockerhub
   - name: 'gcr.io/cloud-builders/docker'
     id: "Login to Docker"
     args: ["login", "--username", "${_CI_USERNAME}", "--password", "${_CI_PASSWORD}"]
