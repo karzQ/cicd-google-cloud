@@ -1,27 +1,49 @@
 steps:
+
+# Install Maven
+  - name: 'maven'
+    id: 'Install maven'
+    args: ["mvn", "clean", "install", "-DskipTest"]
+
+# Test Java project
+  - name: 'maven'
+    id: 'Test maven'
+    args: ["mvn", "test"]
+
+# Install NodeJS in nodeApi/src folder
   - name: 'node'
     id: 'Install node'
     dir: './nodeApi/src'
     args: ["npm", "install"]
 
+# Build NodeJS project
   - name: 'node'
     id: 'Build node'
     dir: './nodeApi/src'
     args: ["npm", build"]
 
+# Test NodeJS project
   - name: 'node'
     id: 'Test node'
     dir: './nodeApi/src'
     args: ["npm", "test"]
 
-# steps:
-# - name: 'gcr.io/cloud-builders/npm' 
-# args: ['install']
+# Build the java container image
+  - name: 'docker'
+    id: "Dockerize java project"
+    args: [
+      "docker", "login", "-u", "${_CI_USERNAME}", "-p", "${_CI_PASSWORD}",
+      "docker", "build", "-t", "${_CI_USERNAME}/java:1",
+      "docker", "tag", "java", "${_CI_USERNAME}/java:1",
+      "docker", "push", "docker.io/${_CI_USERNAME}/java:1"
+    ]
 
-# - name: 'gcr.io/cloud-builders/npm' 
-# args: ['test']
-
-# - name: "gcr.io/cloud-builders/gcloud"
-# args: ["app", "deploy"]
-
-# timeout: "1600s"
+# Build the node container image
+  - name: 'docker'
+    id: "Dockerize node project"
+    args: [
+      "docker", "login", "-u", "${_CI_USERNAME}", "-p", "${_CI_PASSWORD}",
+      "docker", "build", "-t", "${_CI_USERNAME}/node:1",
+      "docker", "tag", "node", "${_CI_USERNAME}/node:1",
+      "docker", "push", "docker.io/${_CI_USERNAME}/node:1"
+    ]
