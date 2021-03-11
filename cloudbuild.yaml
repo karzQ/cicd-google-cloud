@@ -1,8 +1,20 @@
 steps:
-  - name: 'build'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: ["./scripts/deploy-http.sh"]
     waitFor: ["-"]
 
-  - name: 'build'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: ["./scripts/deploy-pubsub.sh"]
     waitFor: ["-"]
+
+# steps:
+# - name: 'gcr.io/cloud-builders/npm' 
+# args: ['install']
+
+# - name: 'gcr.io/cloud-builders/npm' 
+# args: ['test']
+
+# - name: "gcr.io/cloud-builders/gcloud"
+# args: ["app", "deploy"]
+
+# timeout: "1600s"
