@@ -1,33 +1,34 @@
 steps:
 
-# # Install Maven
-#   - name: 'maven'
-#     id: 'Install maven'
-#     args: ["mvn", "clean", "install", "-DskipTest"]
+# Install Maven
+  - name: 'maven'
+    id: 'Install maven'
+    args: ["mvn", "clean", "install", "-DskipTest"]
 
-# # Test Java project
-#   - name: 'maven'
-#     id: 'Test maven'
-#     args: ["mvn", "test"]
+# Test Java project
+  - name: 'maven'
+    id: 'Test maven'
+    args: ["mvn", "test"]
 
-# # Install NodeJS in nodeApi/src folder
-#   - name: 'node'
-#     id: 'Install node'
-#     dir: './nodeApi/src'
-#     args: ["npm", "install"]
+# Install NodeJS in nodeApi/src folder
+  - name: 'node'
+    id: 'Install node'
+    dir: './nodeApi/src'
+    args: ["npm", "install"]
 
-# # Build NodeJS project
-#   - name: 'node'
-#     id: 'Build node'
-#     dir: './nodeApi/src'
-#     args: ["npm", build"]
+# Build NodeJS project
+  - name: 'node'
+    id: 'Build node'
+    dir: './nodeApi/src'
+    args: ["npm", build"]
 
-# # Test NodeJS project
-#   - name: 'node'
-#     id: 'Test node'
-#     dir: './nodeApi/src'
-#     args: ["npm", "test"]
+# Test NodeJS project
+  - name: 'node'
+    id: 'Test node'
+    dir: './nodeApi/src'
+    args: ["npm", "test"]
 
+## Dockerize NodeJS
 # Login the java container image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Login to Docker"
@@ -38,22 +39,23 @@ steps:
     id: "Build java project with docker"
     args: ["build", "-t", "${_CI_USERNAME}/java:1", "."]
 
-# # Build the java container image
-#   - name: 'gcr.io/cloud-builders/docker'
-#     id: "Add tag for java project image"
-#     args: ["tag", "java", "${_CI_USERNAME}/java:1"]
-
 # Build the java container image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Push java project image to DockerHub"
     args: ["push", "docker.io/${_CI_USERNAME}/java:1"]
 
-# # Build the node container image
-#   - name: 'docker'
-#     id: "Dockerize node project"
-#     args: [
-#       "docker", "login", "-u", "${_CI_USERNAME}", "-p", "${_CI_PASSWORD}",
-#       "docker", "build", "-t", "${_CI_USERNAME}/node:1",
-#       "docker", "tag", "node", "${_CI_USERNAME}/node:1",
-#       "docker", "push", "docker.io/${_CI_USERNAME}/node:1"
-#     ]
+## Dockerize NodeJS
+# Login the NodeJS container image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: "Login to Docker"
+    args: ["login", "--username", "${_CI_USERNAME}", "--password", "${_CI_PASSWORD}"]
+
+# Build the NodeJS container image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: "Build java project with docker"
+    args: ["build", "-t", "${_CI_USERNAME}/node:1", "."]
+
+# Build the NodeJS container image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: "Push java project image to DockerHub"
+    args: ["push", "docker.io/${_CI_USERNAME}/node:1"]
